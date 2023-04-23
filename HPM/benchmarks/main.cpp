@@ -1,9 +1,10 @@
-#include <vector>
 #include <utility>
+#include <vector>
 #include <type_traits>
+#include <benchmark/benchmark.h>
 #include "Matrix.h"
-#define PICOBENCH_IMPLEMENT_WITH_MAIN
-#include "picobench.h"
+
+
 
 
 template <typename T>
@@ -28,7 +29,7 @@ void matrixIteration(std::vector<T>& m, size_t _size) {
 constexpr size_t size = 300;
 
 // Benchmarking function written by the user:
-static void bombace_Matrix(picobench::state& s)
+static void bombace_Matrix(benchmark::State& s)
 {
 	std::vector<int> v(size * size, 0);
 	std::generate(v.begin(), v.end(), rand);
@@ -39,10 +40,10 @@ static void bombace_Matrix(picobench::state& s)
 		matrixIteration(A, size);
 	}
 }
-PICOBENCH(bombace_Matrix); // Register the above function with picobench
+BENCHMARK(bombace_Matrix); // Register the above function with picobench
 
 
-static void vector_Matrix(picobench::state& s)
+static void vector_Matrix(benchmark::State& s)
 {
 	std::vector<int> v(size * size, 0);
 	std::generate(v.begin(), v.end(), rand);
@@ -51,4 +52,25 @@ static void vector_Matrix(picobench::state& s)
 		matrixIteration(v, size);
 	}
 }
-PICOBENCH(vector_Matrix); // Register the above function with picobench
+BENCHMARK(vector_Matrix); // Register the above function with picobench
+
+
+
+//#include <benchmark/benchmark.h>
+//static void BM_StringCreation(benchmark::State& state) {
+//
+//  for (auto _ : state)
+//    std::string empty_string;
+//}
+//// Register the function as a benchmark
+//
+//BENCHMARK(BM_StringCreation);// Define another benchmark
+//
+//static void BM_StringCopy(benchmark::State& state) {
+//  std::string x = "hello";
+//  for (auto _ : state)
+//    std::string copy(x);
+//}
+//BENCHMARK(BM_StringCopy);
+
+BENCHMARK_MAIN();
