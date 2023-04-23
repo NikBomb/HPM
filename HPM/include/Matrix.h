@@ -1,3 +1,7 @@
+#include <utility>
+#include <vector>
+#include <type_traits>
+
 namespace bombace {
 
 	struct Row {};
@@ -71,7 +75,7 @@ namespace bombace {
 
 
 
-	template <typename T, typename StrageDimension = Col>
+	template <typename T, typename StorageDimension = Col>
 	class Matrix {
 	public:
 		using type = T;
