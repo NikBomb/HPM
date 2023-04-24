@@ -9,13 +9,11 @@
 
 template <typename T>
 void matrixIteration(bombace::Matrix<T>& m, size_t _size) {
-
-	for (auto col = bombace::ColIterator(m).begin(); col != bombace::ColIterator(m).end(); ++col) {
-		for (int i = 0; i < _size; i++) {
-			col.at(i) += rand();
+	for (auto dim = m.dimItBegin(); dim != m.dimItEnd(); ++dim) {
+		for (auto el = dim.vecItBegin(); el != dim.vecItEnd(); ++el) {
+			*(el) += rand();
 		}
 	}
-
 }
 
 template <typename T>
@@ -26,9 +24,8 @@ void matrixIteration(std::vector<T>& m, size_t _size) {
 
 }
 
-constexpr size_t size = 300;
+constexpr size_t size = 500;
 
-// Benchmarking function written by the user:
 static void bombace_Matrix(benchmark::State& s)
 {
 	std::vector<int> v(size * size, 0);
